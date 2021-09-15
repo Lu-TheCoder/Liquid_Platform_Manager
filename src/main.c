@@ -5,7 +5,7 @@
 int main(){
 
     platform_state state;
-    if(platform_init(&state, "Liquid Window", 200, 200)){
+    if(platform_init(&state, "Liquid Window", 400, 400)){
         while(state.isRunning){
             platform_poll_events(&state);
         }

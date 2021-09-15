@@ -1,5 +1,16 @@
+#pragma once
+
 #include <stdbool.h>
 #include <stdio.h>
+
+typedef enum LOG_LEVEL{
+    FATAL = 0,
+    ERROR = 1,
+    WARN = 2,
+    INFO = 3,
+    DEBUG = 4,
+    TRACE = 5
+}LOG_LEVEL;
 
 typedef struct platform_state{
     void* internal_state;
@@ -19,7 +30,7 @@ bool platform_poll_events(platform_state* state);
 float platform_get_absolute_time();
 
 //Writes messages to the platform console
-void platform_console_write();
+void platform_console_write(const char* message, int colour);
 
 //Writes messages to the platform console
-void platform_console_write_error();
+void platform_console_write_error(const char* message, int colour);

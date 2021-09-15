@@ -1,13 +1,18 @@
+//C99 IMPORTS
+#include "platform.h"
+#include "platform_logger.h"
+
+#ifdef __APPLE__
+
 //OBJECTIVE C - IMPORTS
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/CVDisplayLink.h>
 #import <QuartzCore/CAMetalLayer.h>
 
-//C99 IMPORTS
-#include "platform.h"
 
 CVReturn displayCallback(CVDisplayLinkRef displayLink, const CVTimeStamp *inNow, const CVTimeStamp *inOutputTime, CVOptionFlags flagsIn, CVOptionFlags *flagsOut, void *displayLinkContext);
+static void platform_console_write_file(FILE* file, const char* message, int colour);
 
 typedef struct internal_state internal_state;
 
@@ -116,7 +121,7 @@ bool isAppRunning = false;
 - (void)keyDown:(NSEvent *)event
 {
     uint16 keyCode = [event keyCode];
-    NSLog(@"Key pressed: '%i'\n", keyCode);
+    LINFO("Key pressed: '%i'\n", keyCode);
 
 	// if(handle->keyDownCallback) {
 	// 	PTLKeyDownEvent e = {handle, [event keyCode], [event isARepeat], [event modifierFlags]};
@@ -126,7 +131,7 @@ bool isAppRunning = false;
 - (void)keyUp:(NSEvent *)event
 {
     uint16 keyCode = [event keyCode];
-    //NSLog(@"Key up: '%i'\n", keyCode);
+    LINFO("Key up: '%i'\n", keyCode);
 	// if(handle->keyUpCallback)
 	// 	handle->keyUpCallback((PTLKeyUpEvent){handle, [event keyCode], [event isARepeat], [event modifierFlags]});
 }
@@ -265,38 +270,38 @@ bool isAppRunning = false;
 
 - (void)windowDidResize:(NSNotification *)notification
 {
-    NSLog(@"Window Resized: (%i;%i)\n", (uint32_t)self.frame.size.width, (uint32_t)self.frame.size.height);
+    LINFO("Window Resized: (%i;%i)\n", (uint32_t)self.frame.size.width, (uint32_t)self.frame.size.height);
 	// if(handle->windowResizeCallback)
 	// 	handle->windowResizeCallback((PTLWindowResizeEvent){handle, (uint32_t)self.frame.size.width, (uint32_t)self.frame.size.height});
 	[self.contentView setFrameSize:self.frame.size];
 }
 - (void)windowDidMiniaturize:(NSNotification *)notification
 {
-    NSLog(@"Window Miniaturized.\n");
+	LINFO("Window Miniaturized.");
 	// if(handle->windowMinimizeCallback)
 	// 	handle->windowMinimizeCallback((PTLWindowMinimizeEvent){handle, 1});
 }
 - (void)windowDidDeminiaturize:(NSNotification *)notification
 {
-    NSLog(@"Window Deminiaturize.\n");
+	LINFO("Window Deminiaturize.");
 	// if(handle->windowMinimizeCallback)
 	// 	handle->windowMinimizeCallback((PTLWindowMinimizeEvent){handle, 0});
 }
 -(void)windowDidBecomeKey:(NSNotification *)notification
 {
-     NSLog(@"Window Gained Focus.\n");
+     LINFO("Window Gained Focus.");
 	// if(handle->windowFocusCallback)
 	// 	handle->windowFocusCallback((PTLWindowFocusEvent){handle, 1});
 }
 -(void)windowDidResignKey:(NSNotification *)notification
 {
-     NSLog(@"Window Lost Focus.\n");
+     LINFO("Window Lost Focus.");
 	// if(handle->windowFocusCallback)
 	// 	handle->windowFocusCallback((PTLWindowFocusEvent){handle, 0});
 }
 - (BOOL)windowShouldClose:(NSWindow *)sender
 {
-     NSLog(@"Closing Window...\n");
+     LINFO("Closing Window...");
 
      isAppRunning = false;
 	// if(handle->windowCloseCallback)
@@ -357,7 +362,7 @@ bool platform_init(platform_state* state, const char* app_name, int width, int h
     state->isRunning = true;
     isAppRunning = true;
 
-    printf("Initialized Platform\n");
+	LDEBUG("Initialized Platform.");
     return true;
 }
 
@@ -370,7 +375,7 @@ void platform_shutdown(platform_state* state){
     
     free(i_state->window);
     
-    printf("Shutdown Platform\n");
+	LDEBUG("Platfrom Shutdown Successfully.");
 }
 
 //Listens to events/platform messages
@@ -400,12 +405,20 @@ float platform_get_absolute_time(){
     return 0;
 }
 
-//Writes messages to the platform console
-void platform_console_write(){
-
+static void platform_console_write_file(FILE* file, const char* message, int colour) {
+    // Colours: FATAL, ERROR, WARN, INFO, DEBUG, TRACE.
+    const char* colour_strings[] = {"0;41", "1;31", "1;33", "1;32", "1;34", "1;36"};
+    fprintf(file, "\033[%sm%s\033[0m", colour_strings[colour], message);
 }
 
 //Writes messages to the platform console
-void platform_console_write_error(){
-    
+void platform_console_write(const char* message, int colour){
+	platform_console_write_file(stdout, message, colour);
 }
+
+//Writes messages to the platform console
+void platform_console_write_error(const char* message, int colour){
+    platform_console_write_file(stderr, message, colour);
+}
+
+#endif // APPLE PLATFORM
