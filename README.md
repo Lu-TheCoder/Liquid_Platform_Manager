@@ -1,6 +1,6 @@
 # Liquid_Platform_Manager
 
-A Cross-Platform Window Manager similar to GLFW
+A Cross-Platform Window Manager similar to GLFW written in **C99**
 
 **---- How To Show A Window ----**
 
@@ -55,8 +55,18 @@ This is a structure that holds two variables.
 
 # Supported Platforms
 
-**Platforms**|**Support Status**
+Platforms|Support Status
 ----------|------------
 MacOS | Supported
 Windows | Pending
 Linux | Pending
+
+# Tasks 
+This project is not completed and thus further updates will still be issued.
+Here are some of the main tasks that still need to be completed.
+
+- [x] Add Mac Support
+- [ ] Add Windows Support
+- [ ] Add Linux Support
+- [ ] Add Support for any Graphics Pipeline (Vulkan, OpengGL, DirectX) etc.
+- [ ] Add Flexible Event System
