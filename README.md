@@ -55,7 +55,7 @@ This is a structure that holds two variables.
 
 # Supported Platforms
 
-Platforms|Support Status
+**Platforms**|**Support Status**
 ----------|------------
 MacOS | Supported
 Windows | Pending
