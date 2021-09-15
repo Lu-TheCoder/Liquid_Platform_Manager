@@ -1,5 +1,12 @@
 # Liquid_Platform_Manager
 
+**Supported Platforms**
+Platforms | Support Status
+---------- | ------------
+MacOS | Supported
+Windows | Pending
+Linux | Pending
+
 A Cross-Platform Window Manager similar to GLFW
 
 **---- How To Show A Window ----**
