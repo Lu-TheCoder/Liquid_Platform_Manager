@@ -1,8 +1,9 @@
 # Liquid_Platform_Manager
 
 **Supported Platforms**
-Platforms | Support Status
----------- | ------------
+
+Platforms|Support Status
+----------|------------
 MacOS | Supported
 Windows | Pending
 Linux | Pending
