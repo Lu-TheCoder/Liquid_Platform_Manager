@@ -1,13 +1,5 @@
 # Liquid_Platform_Manager
 
-**Supported Platforms**
-
-Platforms|Support Status
-----------|------------
-MacOS | Supported
-Windows | Pending
-Linux | Pending
-
 A Cross-Platform Window Manager similar to GLFW
 
 **---- How To Show A Window ----**
@@ -59,3 +51,12 @@ int main(){
 This is a structure that holds two variables.
 * It contains a `void pointer*` to the `internal_state` which contains further information.
 * It also contains a global variable of type `bool`, `isRunning` which holds true if platform is actively running or false if it is not.
+
+
+# Supported Platforms
+
+Platforms|Support Status
+----------|------------
+MacOS | Supported
+Windows | Pending
+Linux | Pending
