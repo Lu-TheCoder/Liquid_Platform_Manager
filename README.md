@@ -9,22 +9,25 @@ A Cross-Platform Window Manager similar to GLFW
 1. destroy the window when no longer needed
 
 **Platform_Init()**
+Initializes the platform layer and returns true on success:
 ```c
 bool platform_init(platform_state* state, const char* app_name, int width, int height);
 ```
-Initializes the platform layer and returns true on success
+
 
 **Platform_Poll_Events()**
+Listens for platform-specific messages/events: 
 ```c
 bool platform_poll_events(platform_state* state);
 ```
-Listens for platform-specific messages/events 
+
 
 **Platform_Shutdown()**
+Destroys the platform instance and free's any memory if any has been allocated:
 ```c
 bool platform_shutdown(platform_state* state);
 ```
-Destroys the platform instance and free's any memory if any has been allocated
+
 
 **BASIC EXAMPLE OF HOW TO CREATE A WINDOW**
 
@@ -46,4 +49,5 @@ int main(){
 **Platform_State?**
 
 This is a structure that holds two variables.
-* It contains a `void pointer*` to the `internal_state` which contains further information * It also contains a global variable of type `bool`, `isRunning` which holds true if platform is actively running or false if it is not.
+* It contains a `void pointer*` to the `internal_state` which contains further information.
+* It also contains a global variable of type `bool`, `isRunning` which holds true if platform is actively running or false if it is not.
