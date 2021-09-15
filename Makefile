@@ -13,14 +13,16 @@ LINKER_FLAGS :=
 INCLUDE_FLAGS := -Isrc 
 DEFINES := 
 
-.PHONY: scaffold build run
+all: scaffold build run
 
+.PHONY: scaffold 
 scaffold:
 	[ -d $(BUILD_DIR) ] || mkdir -p $(BUILD_DIR)
 
-
+.PHONY: build
 build:
 	gcc $(SRC_FILES_C)$(SRC_FILES_M) $(COMPILER_FLAGS) -o $(BUILD_DIR)/$(APP_NAME) $(DEFINES) $(INCLUDE_FLAGS) $(LINKER_FLAGS)
 
+.PHONY: run
 run:
 	./build/LiquidApp
