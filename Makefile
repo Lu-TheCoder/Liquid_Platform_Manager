@@ -11,7 +11,7 @@ SRC_FILES_M := $(call rwildcard,src/,*.m)
 COMPILER_FLAGS := -g -framework Cocoa -framework Foundation -framework QuartzCore -framework AppKit -framework IOKit
 LINKER_FLAGS :=
 INCLUDE_FLAGS := -Isrc 
-DEFINES := 
+DEFINES := -D_DEBUG
 
 all: scaffold build run
 
