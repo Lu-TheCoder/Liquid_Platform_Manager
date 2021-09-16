@@ -3,14 +3,21 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-typedef enum LOG_LEVEL{
-    FATAL = 0,
-    ERROR = 1,
-    WARN = 2,
-    INFO = 3,
-    DEBUG = 4,
-    TRACE = 5
-}LOG_LEVEL;
+#if defined(_DEBUG)
+#define RELEASE_BUILD 1
+#else
+#define RELEASE_BUILD 0
+#endif
+
+#define LOG_WARN_ENABLED 1
+#define LOG_INFO_ENABLED 1
+#define LOG_DEBUG_ENABLED 1
+#define LOG_TRACE_ENABLED 1
+
+#if RELEASE_BUILD
+#define LOG_DEBUG_ENABLED 0
+#define LOG_TRACE_ENABLED 0
+#endif
 
 typedef struct platform_state{
     void* internal_state;
